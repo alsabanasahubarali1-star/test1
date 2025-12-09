@@ -1,32 +1,33 @@
-// Check if a number is prime
-const isPrime = (num) => {
-    if (num < 2) return false;
-    for (let i = 2; i <= Math.sqrt(num); i++) {
-        if (num % i === 0) return false;
+// Function to calculate factorial of a number
+function factorial(n) {
+    if (n === 0 || n === 1) return 1;
+    let result = 1;
+    for (let i = 2; i <= n; i++) {
+        result *= i;
     }
-    return true;
-};
+    return result;
+}
 
-// Generate prime numbers and categorize numbers up to a limit
-const analyzeNumbers = (limit) => {
-    const primes = [];
-    const categorized = { even: [], odd: [] };
+// Function to analyze numbers up to a limit
+function analyzeNumbers(limit) {
+    const analysis = [];
 
     for (let i = 1; i <= limit; i++) {
-        // Check for prime
-        if (isPrime(i)) primes.push(i);
-
-        // Categorize as even or odd
-        (i % 2 === 0 ? categorized.even : categorized.odd).push(i);
+        analysis.push({
+            number: i,
+            square: i * i,
+            factorial: factorial(i),
+            multipleOfThree: i % 3 === 0
+        });
     }
 
-    return { primes, categorized };
-};
+    return analysis;
+}
 
 // Test the function
-const limit = 20;
-const { primes, categorized } = analyzeNumbers(limit);
+const limit = 10;
+const result = analyzeNumbers(limit);
 
-console.log("Prime numbers up to", limit, ":", primes);
-console.log("Even numbers:", categorized.even);
-console.log("Odd numbers:", categorized.odd);
+result.forEach(item => {
+    console.log(`Number: ${item.number}, Square: ${item.square}, Factorial: ${item.factorial}, Multiple of 3: ${item.multipleOfThree}`);
+});
