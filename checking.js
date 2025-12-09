@@ -1,44 +1,32 @@
-// Function to check if a number is prime
-function isPrime(number) {
-    if (number < 2) return false;
-    for (let i = 2; i <= Math.sqrt(number); i++) {
-        if (number % i === 0) {
-            return false;
-        }
+// Check if a number is prime
+const isPrime = (num) => {
+    if (num < 2) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
     }
     return true;
-}
+};
 
-// Function to generate prime numbers up to a limit
-function generatePrimes(limit) {
+// Generate prime numbers and categorize numbers up to a limit
+const analyzeNumbers = (limit) => {
     const primes = [];
-    for (let i = 2; i <= limit; i++) {
-        if (isPrime(i)) {
-            primes.push(i);
-        }
-    }
-    return primes;
-}
+    const categorized = { even: [], odd: [] };
 
-// Function to categorize numbers as even or odd
-function categorizeNumbers(numbers) {
-    const result = { even: [], odd: [] };
-    for (let num of numbers) {
-        if (num % 2 === 0) {
-            result.even.push(num);
-        } else {
-            result.odd.push(num);
-        }
-    }
-    return result;
-}
+    for (let i = 1; i <= limit; i++) {
+        // Check for prime
+        if (isPrime(i)) primes.push(i);
 
-// Test the functions
+        // Categorize as even or odd
+        (i % 2 === 0 ? categorized.even : categorized.odd).push(i);
+    }
+
+    return { primes, categorized };
+};
+
+// Test the function
 const limit = 20;
-const primes = generatePrimes(limit);
-console.log("Prime numbers up to", limit, ":", primes);
+const { primes, categorized } = analyzeNumbers(limit);
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const categorized = categorizeNumbers(numbers);
+console.log("Prime numbers up to", limit, ":", primes);
 console.log("Even numbers:", categorized.even);
 console.log("Odd numbers:", categorized.odd);
